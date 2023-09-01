@@ -97,12 +97,3 @@ publishing {
     }
 }
 
-
-signing {
-    useInMemoryPgpKeys(
-        project.findProperty("signing.keyId")?.toString() ?: System.getenv("SIGNINGKEY"),
-        project.findProperty("signing.InMemoryKey")?.toString() ?: System.getenv("MEMORY_KEY"),
-        project.findProperty("signing.password")?.toString()?:System.getenv("SIGNINGPASSWORD")
-    )
-    sign(publishing.publications)
-}
