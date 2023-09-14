@@ -1,6 +1,7 @@
 package co.yml.charts.ui.linechart.model
 
 import android.graphics.Paint
+import android.graphics.Path
 import android.graphics.Typeface
 import android.text.TextPaint
 import androidx.compose.ui.geometry.CornerRadius
@@ -37,7 +38,7 @@ import co.yml.charts.common.model.Point
  * and [Point] i.e the input data w.r.t selected point
  */
 data class SelectionHighlightPopUp(
-    val backgroundColor: Color = Color.White,
+    val backgroundColor: Color = Color.Black,
     val backgroundAlpha: Float = 0.7f,
     val backgroundCornerRadius: CornerRadius = CornerRadius(5f),
     val backgroundColorFilter: ColorFilter? = null,
@@ -45,7 +46,7 @@ data class SelectionHighlightPopUp(
     val backgroundStyle: DrawStyle = Fill,
     val paddingBetweenPopUpAndPoint: Dp = 20.dp,
     val labelSize: TextUnit = 14.sp,
-    val labelColor: Color = Color.Black,
+    val labelColor: Color = Color.White,
     val labelAlignment: Paint.Align = Paint.Align.CENTER,
     val labelTypeface: Typeface = Typeface.DEFAULT,
     val popUpLabel: (Float, Float) -> (String) = { x, y ->
@@ -61,32 +62,72 @@ data class SelectionHighlightPopUp(
             typeface = labelTypeface
         }
         val label = popUpLabel(identifiedPoint.x, identifiedPoint.y)
+        val paddingBetweenPopUpAndPoint = 10.dp.toPx() // Adjust the padding as needed
+
+        val background = getTextBackgroundRect(
+            selectedOffset.x + 10f,
+            selectedOffset.y - 80f,
+            label,
+            highlightTextPaint
+        )
+
+        val arrowSize = 20.dp.toPx() // Adjust the arrow size as needed
+        val arrowX = background.centerX() // Center the arrow horizontally
+        val arrowY = background.bottom // Align the arrow to the bottom of the background
+
         drawContext.canvas.nativeCanvas.apply {
-            val background = getTextBackgroundRect(
-                selectedOffset.x,
-                selectedOffset.y,
-                label,
-                highlightTextPaint
-            )
+
+            //Needed in future --------
+            val availableWidth = size.width
+            // Ensure the tooltip stays within the available width
+            var adjustedX = selectedOffset.x
+            if (adjustedX + background.width() > availableWidth) {
+                // If tooltip extends beyond the available width, adjust its x-position
+                adjustedX = availableWidth - background.width()
+            }
+            //Needed in future --------
+
+
+            // Draw the rounded rectangle background
             drawRoundRect(
                 color = backgroundColor,
                 topLeft = Offset(
                     background.left.toFloat(),
-                    background.top.toFloat() - paddingBetweenPopUpAndPoint.toPx()
+                    background.top.toFloat() - paddingBetweenPopUpAndPoint
                 ),
-                size = Size(background.width().toFloat(), background.height().toFloat()),
-                alpha = backgroundAlpha,
+                size = Size(background.width().toFloat(), background.height() + arrowSize),
+                alpha = 1f,
                 cornerRadius = backgroundCornerRadius,
                 colorFilter = backgroundColorFilter,
                 blendMode = backgroundBlendMode,
                 style = backgroundStyle
             )
+
+            val arrowPaint = TextPaint().apply {
+                color = backgroundColor.toArgb()
+            }
+
+            // Draw the down arrow below the background
+            val arrowPath = createArrowPath(arrowX.toFloat() +5f, arrowY.toFloat() - 10f, arrowSize)
+            drawPath(arrowPath, arrowPaint)
+
+            // Draw the text label
             drawText(
                 label,
                 selectedOffset.x,
-                selectedOffset.y - paddingBetweenPopUpAndPoint.toPx(),
+                selectedOffset.y - paddingBetweenPopUpAndPoint - 50f,
                 highlightTextPaint
             )
         }
     }
 )
+
+
+private fun createArrowPath(x: Float, y: Float, size: Float): android.graphics.Path {
+    val path = Path()
+    path.moveTo(x - size / 2, y)
+    path.lineTo(x + size / 2, y)
+    path.lineTo(x, y + size)
+    path.close()
+    return path
+}

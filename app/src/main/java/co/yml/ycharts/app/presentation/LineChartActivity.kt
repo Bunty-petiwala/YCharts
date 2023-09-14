@@ -189,7 +189,7 @@ private fun MultipleToneLinechart(pointsData: List<Point>) {
                     dataPoints = pointsData,
                     lineStyle = LineStyle(lineType = LineType.Straight(), color = Color.Blue),
                     intersectionPoint = IntersectionPoint(color = Color.Red),
-                    selectionHighlightPopUp = SelectionHighlightPopUp(popUpLabel = { x, y ->
+                    selectionHighlightPopUp = SelectionHighlightPopUp(backgroundColor = Color.Black, labelColor = Color.White, popUpLabel = { x, y ->
                         val xLabel = "x : ${(1900 + x).toInt()} "
                         val yLabel = "y : ${String.format("%.2f", y)}"
                         "$xLabel $yLabel"
@@ -198,7 +198,7 @@ private fun MultipleToneLinechart(pointsData: List<Point>) {
                     dataPoints = pointsData.subList(0, 10),
                     lineStyle = LineStyle(lineType = LineType.Straight(), color = Color.Magenta),
                     intersectionPoint = IntersectionPoint(color = Color.Red),
-                    selectionHighlightPopUp = SelectionHighlightPopUp(popUpLabel = { x, y ->
+                    selectionHighlightPopUp = SelectionHighlightPopUp(backgroundColor = Color.Black, labelColor = Color.White, popUpLabel = { x, y ->
                         val xLabel = "x : ${(1900 + x).toInt()} "
                         val yLabel = "y : ${String.format("%.2f", y)}"
                         "$xLabel $yLabel"
@@ -207,7 +207,7 @@ private fun MultipleToneLinechart(pointsData: List<Point>) {
                     dataPoints = pointsData.subList(15, 30),
                     lineStyle = LineStyle(lineType = LineType.Straight(), color = Color.Yellow),
                     intersectionPoint = IntersectionPoint(color = Color.Red),
-                    selectionHighlightPopUp = SelectionHighlightPopUp(popUpLabel = { x, y ->
+                    selectionHighlightPopUp = SelectionHighlightPopUp(backgroundColor = Color.Black, labelColor = Color.White, popUpLabel = { x, y ->
                         val xLabel = "x : ${(1900 + x).toInt()} "
                         val yLabel = "y : ${String.format("%.2f", y)}"
                         "$xLabel $yLabel"

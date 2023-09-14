@@ -31,10 +31,16 @@ data class IntersectionPoint(
     val colorFilter: ColorFilter? = null,
     val blendMode: BlendMode = DrawScope.DefaultBlendMode,
     val draw: DrawScope.(Offset) -> Unit = { center ->
+
+        val centerX = center.x
+        val centerY = center.y
+
+        val circleCenter = Offset(centerX + 17f, centerY)
+
         drawCircle(
             color,
             radius.toPx(),
-            center,
+            circleCenter,
             alpha,
             style,
             colorFilter,
