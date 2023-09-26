@@ -11,6 +11,7 @@ import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.DrawStyle
 import androidx.compose.ui.graphics.drawscope.Fill
+import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
@@ -61,11 +62,14 @@ data class SelectionHighlightPopUp(
             textAlign = labelAlignment
             typeface = labelTypeface
         }
-        val label = popUpLabel(identifiedPoint.x, identifiedPoint.y)
+        var label = popUpLabel(identifiedPoint.x, identifiedPoint.y)
+        var pos = identifiedPoint.x.toDouble()
+        //if Pos is 0 then move little left
+
         val paddingBetweenPopUpAndPoint = 10.dp.toPx() // Adjust the padding as needed
 
         val background = getTextBackgroundRect(
-            selectedOffset.x + 10f,
+            selectedOffset.x + if (pos == 0.0) 100f else 10f,
             selectedOffset.y - 80f,
             label,
             highlightTextPaint
@@ -77,17 +81,6 @@ data class SelectionHighlightPopUp(
 
         drawContext.canvas.nativeCanvas.apply {
 
-            //Needed in future --------
-            val availableWidth = size.width
-            // Ensure the tooltip stays within the available width
-            var adjustedX = selectedOffset.x
-            if (adjustedX + background.width() > availableWidth) {
-                // If tooltip extends beyond the available width, adjust its x-position
-                adjustedX = availableWidth - background.width()
-            }
-            //Needed in future --------
-
-
             // Draw the rounded rectangle background
             drawRoundRect(
                 color = backgroundColor,
@@ -95,7 +88,7 @@ data class SelectionHighlightPopUp(
                     background.left.toFloat(),
                     background.top.toFloat() - paddingBetweenPopUpAndPoint
                 ),
-                size = Size(background.width().toFloat(), background.height() + arrowSize),
+                size = Size(background.width().toFloat(), background.height() + arrowSize + 20),
                 alpha = 1f,
                 cornerRadius = backgroundCornerRadius,
                 colorFilter = backgroundColorFilter,
@@ -112,12 +105,22 @@ data class SelectionHighlightPopUp(
             drawPath(arrowPath, arrowPaint)
 
             // Draw the text label
-            drawText(
-                label,
-                selectedOffset.x,
-                selectedOffset.y - paddingBetweenPopUpAndPoint - 50f,
-                highlightTextPaint
-            )
+            //if contains \n shows in next line
+            drawIntoCanvas { canvas ->
+                val lines = label.split("\n")
+                var yOffset = selectedOffset.y - paddingBetweenPopUpAndPoint - 50f
+                var index = 0
+                for (line in lines) {
+                    canvas.nativeCanvas.drawText(
+                        line,
+                        selectedOffset.x + if (pos == 0.0) 120f else 0f,
+                        yOffset,
+                        highlightTextPaint
+                    )
+                    yOffset += highlightTextPaint.textSize + if (index == 1) 50f else 0f
+                    index++
+                }
+            }
         }
     }
 )

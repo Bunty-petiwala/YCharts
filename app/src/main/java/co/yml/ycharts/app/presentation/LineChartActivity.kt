@@ -134,7 +134,11 @@ private fun SingleLineChartWithGridLines(pointsData: List<Point>, pointsData2: L
                     IntersectionPoint(color = Color(0xFF1C7ECC)),
                     null,
                     null,
-                    SelectionHighlightPopUp()
+                    SelectionHighlightPopUp(popUpLabel = { x, y ->
+                        val yLabel = y.toInt()
+                        val value = pointsData.get(x.toInt())
+                        "${value.xLable}"
+                    })
                 ),
 
                 Line(
@@ -143,7 +147,7 @@ private fun SingleLineChartWithGridLines(pointsData: List<Point>, pointsData2: L
                     IntersectionPoint(color = Color(0xFF1C7ECC)),
                     null,
                     null,
-                    SelectionHighlightPopUp()
+                    null
                 )
             )
         ),
