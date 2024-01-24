@@ -35,16 +35,28 @@ data class IntersectionPoint(
         val centerX = center.x
         val centerY = center.y
 
-        val circleCenter = Offset(centerX + 17f, centerY)
+        val circleCenter = Offset(centerX , centerY)
 
         drawCircle(
-            color,
-            radius.toPx(),
-            circleCenter,
-            alpha,
-            style,
-            colorFilter,
-            blendMode
+            color = color,
+            radius = radius.toPx(),
+            center = circleCenter,
+            alpha = alpha,
+            style = style,
+            colorFilter = colorFilter,
+            blendMode = blendMode
+        )
+
+        val colorCircle = Color.White
+        drawCircle(
+            color = colorCircle,
+            radius = (radius - 1.5.dp).toPx(),
+            center = circleCenter,
+            alpha = alpha,
+            style = style,
+            colorFilter = colorFilter,
+            blendMode = blendMode
         )
     }
 )
+

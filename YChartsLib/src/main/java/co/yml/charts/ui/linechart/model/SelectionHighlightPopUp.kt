@@ -11,6 +11,7 @@ import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.DrawStyle
 import androidx.compose.ui.graphics.drawscope.Fill
+import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
@@ -39,15 +40,15 @@ import co.yml.charts.common.model.Point
  * and [Point] i.e the input data w.r.t selected point
  */
 data class SelectionHighlightPopUp(
-    val backgroundColor: Color = Color.Black,
+    val backgroundColor: Color = Color.White,
     val backgroundAlpha: Float = 0.7f,
-    val backgroundCornerRadius: CornerRadius = CornerRadius(5f),
+    val backgroundCornerRadius: CornerRadius = CornerRadius(10f),
     val backgroundColorFilter: ColorFilter? = null,
     val backgroundBlendMode: BlendMode = DrawScope.DefaultBlendMode,
     val backgroundStyle: DrawStyle = Fill,
     val paddingBetweenPopUpAndPoint: Dp = 20.dp,
     val labelSize: TextUnit = 14.sp,
-    val labelColor: Color = Color.White,
+    val labelColor: Color = Color.Black,
     val labelAlignment: Paint.Align = Paint.Align.CENTER,
     val labelTypeface: Typeface = Typeface.DEFAULT,
     val popUpLabel: (Float, Float) -> (String) = { x, y ->
@@ -91,10 +92,24 @@ data class SelectionHighlightPopUp(
                 size = Size(background.width().toFloat(), background.height() + arrowSize + 20),
                 alpha = 1f,
                 cornerRadius = backgroundCornerRadius,
-                colorFilter = backgroundColorFilter,
+                colorFilter = ColorFilter.tint(color = backgroundColor),
                 blendMode = backgroundBlendMode,
                 style = backgroundStyle
             )
+
+            drawRoundRect(
+                color = Color.Black, // Set your border color here
+                topLeft = Offset(
+                    background.left.toFloat(),
+                    background.top.toFloat() - paddingBetweenPopUpAndPoint
+                ),
+                size = Size(background.width().toFloat(), background.height() + arrowSize + 20),
+                alpha = 1f,
+                cornerRadius = backgroundCornerRadius,
+                style = Stroke(width = 2f) // Set your border width here
+            )
+
+
 
             val arrowPaint = TextPaint().apply {
                 color = backgroundColor.toArgb()
@@ -108,7 +123,7 @@ data class SelectionHighlightPopUp(
             //if contains \n shows in next line
             drawIntoCanvas { canvas ->
                 val lines = label.split("\n")
-                var yOffset = selectedOffset.y - paddingBetweenPopUpAndPoint - 50f
+                var yOffset = selectedOffset.y - paddingBetweenPopUpAndPoint - 60f
                 var index = 0
                 for (line in lines) {
                     canvas.nativeCanvas.drawText(

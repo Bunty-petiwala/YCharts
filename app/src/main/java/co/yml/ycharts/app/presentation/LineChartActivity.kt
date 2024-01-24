@@ -14,6 +14,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.Stroke
@@ -120,7 +121,7 @@ private fun SingleLineChartWithGridLines(pointsData: List<Point>, pointsData2: L
         .backgroundColor(Color.Transparent)
         .labelData { i ->
             // Add yMin to get the negative axis values to the scale
-            val yMin = pointsData.minOf { it.y }
+            val yMin = 0
             val yMax = pointsData.maxOf { it.y }
             val yScale = (yMax - yMin) / steps
             ((i * yScale) + yMin).formatToSinglePrecision()
@@ -130,8 +131,8 @@ private fun SingleLineChartWithGridLines(pointsData: List<Point>, pointsData2: L
             lines = listOf(
                 Line(
                     dataPoints = pointsData,
-                    LineStyle(color = Color(0xFF2096F3)),
-                    IntersectionPoint(color = Color(0xFF1C7ECC)),
+                    LineStyle(color = Color(0xFF1C7ECC), lineType = LineType.Straight(), width = 8f),
+                    IntersectionPoint(color = Color(0xFF1C7ECC), radius = 4.dp),
                     null,
                     null,
                     SelectionHighlightPopUp(popUpLabel = { x, y ->
@@ -143,8 +144,8 @@ private fun SingleLineChartWithGridLines(pointsData: List<Point>, pointsData2: L
 
                 Line(
                     dataPoints = pointsData2,
-                    LineStyle(color = Color(0xFF2096F3)),
-                    IntersectionPoint(color = Color(0xFF1C7ECC)),
+                    LineStyle(color = Color(0xFFEE4B2B), lineType = LineType.Straight(), width = 8f),
+                    IntersectionPoint(color = Color(0xFFEE4B2B), radius = 4.dp),
                     null,
                     null,
                     null
@@ -202,7 +203,7 @@ private fun MultipleToneLinechart(pointsData: List<Point>) {
                     dataPoints = pointsData.subList(0, 10),
                     lineStyle = LineStyle(lineType = LineType.Straight(), color = Color.Magenta),
                     intersectionPoint = IntersectionPoint(color = Color.Red),
-                    selectionHighlightPopUp = SelectionHighlightPopUp(backgroundColor = Color.Black, labelColor = Color.White, popUpLabel = { x, y ->
+                    selectionHighlightPopUp = SelectionHighlightPopUp(backgroundColor = Color.White, labelColor = Color.Black, backgroundCornerRadius = CornerRadius(10f), popUpLabel = { x, y ->
                         val xLabel = "x : ${(1900 + x).toInt()} "
                         val yLabel = "y : ${String.format("%.2f", y)}"
                         "$xLabel $yLabel"
@@ -211,7 +212,7 @@ private fun MultipleToneLinechart(pointsData: List<Point>) {
                     dataPoints = pointsData.subList(15, 30),
                     lineStyle = LineStyle(lineType = LineType.Straight(), color = Color.Yellow),
                     intersectionPoint = IntersectionPoint(color = Color.Red),
-                    selectionHighlightPopUp = SelectionHighlightPopUp(backgroundColor = Color.Black, labelColor = Color.White, popUpLabel = { x, y ->
+                    selectionHighlightPopUp = SelectionHighlightPopUp(backgroundColor = Color.White, labelColor = Color.Black, backgroundCornerRadius = CornerRadius(10f), popUpLabel = { x, y ->
                         val xLabel = "x : ${(1900 + x).toInt()} "
                         val yLabel = "y : ${String.format("%.2f", y)}"
                         "$xLabel $yLabel"
@@ -225,7 +226,7 @@ private fun MultipleToneLinechart(pointsData: List<Point>) {
     LineChart(
         modifier = Modifier
             .fillMaxWidth()
-            .height(300.dp),
+            .height(250.dp),
         lineChartData = data
     )
 }

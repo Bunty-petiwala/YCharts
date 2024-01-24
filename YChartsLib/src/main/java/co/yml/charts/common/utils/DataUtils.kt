@@ -44,16 +44,16 @@ object DataUtils {
     fun getLineChartDataValues(): List<Point> {
         val list = arrayListOf<Point>()
 
-        list.add(Point(0f,90f,"  13 Apr\n11.30 pm", "50"))
-        list.add(Point(1f,100f,"  13 Apr\n12.30 am", "100"))
-        list.add(Point(2f,150f,"  14 Apr\n13.30 am", "150"))
-        list.add(Point(3f,180f,"  15 Apr\n14.30 am", "200"))
-        list.add(Point(4f,90f,"  16 Apr\n15.30 am", "250"))
-        list.add(Point(5f,100f,"  17 Apr\n16.30 am ", "300"))
-        list.add(Point(6f,120f,"  18 Apr\n17.30 am", "350"))
-        list.add(Point(7f,50f,"  19 Apr\n18.30 am", "400"))
-        list.add(Point(8f,140f,"  20 Apr\n19.30 am", "450"))
-        list.add(Point(9f,50f,"  21 Apr\n20.30 am", "500"))
+        list.add(Point(0f,100f,"  13 Apr\n11.30 pm", "50"))
+        list.add(Point(1f,110f,"  13 Apr\n12.30 am", "100"))
+        list.add(Point(2f,210f,"  14 Apr\n13.30 am", "150"))
+        list.add(Point(3f,200f,"  15 Apr\n14.30 am", "200"))
+        list.add(Point(4f,140f,"  16 Apr\n15.30 am", "250"))
+        list.add(Point(5f,190f,"  17 Apr\n16.30 am ", "300"))
+        list.add(Point(6f,220f,"  18 Apr\n17.30 am", "350"))
+        list.add(Point(7f,150f,"  19 Apr\n18.30 am", "400"))
+        list.add(Point(8f,180f,"  20 Apr\n19.30 am", "450"))
+        list.add(Point(9f,200f,"  21 Apr\n20.30 am", "500"))
 
 
         return list
@@ -63,16 +63,16 @@ object DataUtils {
     fun getLineChart2DataValues(): List<Point> {
         val list = arrayListOf<Point>()
 
-        list.add(Point(0f,50f,"  13 Apr\n11.30 pm", "50"))
-        list.add(Point(1f,90f,"  13 Apr\n12.30 am", "100"))
-        list.add(Point(2f,150f,"  14 Apr\n13.30 am", "150"))
-        list.add(Point(3f,100f,"  15 Apr\n14.30 am", "200"))
-        list.add(Point(4f,180f,"  16 Apr\n15.30 am", "250"))
-        list.add(Point(5f,60f,"  17 Apr\n16.30 am ", "300"))
-        list.add(Point(6f,70f,"  18 Apr\n17.30 am", "350"))
-        list.add(Point(7f,90f,"  19 Apr\n18.30 am", "400"))
-        list.add(Point(8f,10f,"  20 Apr\n19.30 am", "450"))
-        list.add(Point(9f,80f,"  21 Apr\n20.30 am", "500"))
+        list.add(Point(0f,110f,"  13 Apr\n11.30 pm", "50"))
+        list.add(Point(1f,12f,"  13 Apr\n12.30 am", "100"))
+        list.add(Point(2f,70f,"  14 Apr\n13.30 am", "150"))
+        list.add(Point(3f,150f,"  15 Apr\n14.30 am", "200"))
+        list.add(Point(4f,100f,"  16 Apr\n15.30 am", "250"))
+        list.add(Point(5f,130f,"  17 Apr\n16.30 am ", "300"))
+        list.add(Point(6f,180f,"  18 Apr\n17.30 am", "350"))
+        list.add(Point(7f,120f,"  19 Apr\n18.30 am", "400"))
+        list.add(Point(8f,80f,"  20 Apr\n19.30 am", "450"))
+        list.add(Point(9f,110f,"  21 Apr\n20.30 am", "500"))
 
 
         return list

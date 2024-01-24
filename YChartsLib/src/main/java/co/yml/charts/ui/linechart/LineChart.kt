@@ -98,7 +98,7 @@ fun LineChart(modifier: Modifier, lineChartData: LineChartData) {
             val (xMin, xMax, xAxisScale) = getXAxisScale(linePoints, xAxisData.steps)
                 val (yMin, _, yAxisScale) = getYAxisScale(linePoints, yAxisData.steps)
                 val maxElementInYAxis = getMaxElementInYAxis(yAxisScale, yAxisData.steps)
-                val xAxisData = xAxisData.copy(axisBottomPadding = bottomPadding)
+                val xAxisData = xAxisData.copy(axisBottomPadding = bottomPadding, axisLineColor = Color.Transparent)//for hide the X Axis line
             val yAxisData = yAxisData.copy(
                 axisBottomPadding = LocalDensity.current.run { rowHeight.toDp() },
                 axisTopPadding = paddingTop
@@ -160,7 +160,7 @@ fun LineChart(modifier: Modifier, lineChartData: LineChartData) {
                     val yBottom = size.height - rowHeight
                     val yOffset = ((yBottom - paddingTop.toPx()) / maxElementInYAxis)
                     xOffset = xAxisData.axisStepSize.toPx() * xZoom
-                    val xLeft = columnWidth // To add extra space if needed
+                    val xLeft = columnWidth + 30 // To add extra space if needed
                     val pointsData = getMappingPointsToGraph(
                         line.dataPoints, xMin, xOffset, xLeft, scrollOffset, yBottom, yMin, yOffset
                     )
